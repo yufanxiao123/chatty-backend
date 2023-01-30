@@ -41,7 +41,7 @@ export class BadRequestError extends CustomError {
 }
 
 export class JoiRequestValidationError extends CustomError {
-  statusCode = HTTP_STATUS.NOT_FOUND;
+  statusCode = HTTP_STATUS.BAD_REQUEST;
   status = 'error';
 
   constructor(message: string) {

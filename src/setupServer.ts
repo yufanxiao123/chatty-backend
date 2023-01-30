@@ -1,5 +1,5 @@
 //install express in terminal at first
-import e, { Application, json, urlencoded, Response, Request, NextFunction } from 'express';
+import { Application, json, urlencoded, Response, Request, NextFunction } from 'express';
 import http from 'http';
 import cors from 'cors';
 import helmet from 'helmet';
@@ -9,13 +9,13 @@ import HTTP_STATUS from 'http-status-codes';
 import 'express-async-errors';
 import compress from 'compression';
 import compression from 'compression';
-import { config } from './config';
+import { config } from '@root/config';
 import { Server } from 'socket.io';
 import { createClient } from 'redis';
 import { createAdapter } from '@socket.io/redis-adapter';
-import applicationRoutes from './routes';
-import { CustomError, IErrorResponse } from './shared/global/helpers/error-handler';
+import applicationRoutes from '@root/routes';
 import Logger from 'bunyan';
+import { CustomError, IErrorResponse } from '@global/helpers/error-handler';
 
 const SERVER_PORT = 5000;
 const log: Logger = config.createLogger('server');
@@ -90,6 +90,7 @@ export class ChattyServer {
     });
 
     //Each app.use(middleware) is called every time a request is sent to the server.
+    //this catch errors that other files throws
     app.use((error: IErrorResponse, req: Request, res: Response, next: NextFunction) => {
       log.error(error);
       if (error instanceof CustomError) {
