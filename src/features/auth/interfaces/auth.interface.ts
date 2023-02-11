@@ -23,6 +23,7 @@ export interface AuthPayload {
 //iat: timer for token
 
 export interface IAuthDocument extends Document {
+  //no authId
   _id: string | ObjectId;
   uId: string;
   username: string;

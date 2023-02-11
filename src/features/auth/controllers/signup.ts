@@ -75,7 +75,6 @@ export class SignUp {
       message: 'User created successfully',
       user: userDataForCache,
       token: userJwt,
-      authData: authData
     });
   }
 

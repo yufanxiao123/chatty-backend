@@ -16,6 +16,12 @@ class Config {
   public CLOUD_API_KEY: string | undefined;
   public CLOUD_API_SECRET: string | undefined;
 
+  public SENDER_EMAIL: string | undefined;
+  public SENDER_EMAIL_PASSWORD: string | undefined;
+  public SENDGRID_API_KEY: string | undefined;
+  public SENDGRID_SENDER: string | undefined;
+
+
   private readonly DEFAULT_DATABASE_URL = 'mongodb://localhost:27017/chattyapp-backend';
 
   constructor() {
@@ -29,11 +35,24 @@ class Config {
     this.CLOUD_NAME = process.env.CLOUD_NAME || '';
     this.CLOUD_API_KEY = process.env.CLOUD_API_KEY || '';
     this.CLOUD_API_SECRET = process.env.CLOUD_API_SECRET || '';
+
+    this.SENDER_EMAIL = process.env.SENDER_EMAIL || '';
+    this.SENDER_EMAIL_PASSWORD = process.env.SENDER_EMAIL_PASSWORD || '';
+    this.SENDGRID_API_KEY = process.env.SENDGRID_API_KEY || '';
+    this.SENDGRID_SENDER = process.env.SENDGRID_SENDER || '';
+
   }
 
+  /**
+   * create a bunyan logger instance
+   */
   public createLogger(name: string): bunyan {
     return bunyan.createLogger({ name, level: 'debug' });
   }
+
+  /**
+   * ensure variables in Config instance is not undefined
+   */
   public validateConfig(): void {
     //Object.entries(this) return this variables and values
     for (const [key, value] of Object.entries(this)) {
@@ -43,6 +62,9 @@ class Config {
     }
   }
 
+  /**
+   * configure cloudinary variables
+   */
   public cloudinaryConfig(): void {
     cloudinary.v2.config({
       cloud_name: this.CLOUD_NAME,

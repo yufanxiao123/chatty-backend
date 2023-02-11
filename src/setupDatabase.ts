@@ -8,6 +8,7 @@ const log: Logger = config.createLogger('setupDatabase');
 //use default means it is an annomyous fuction, when you import, you can use any name
 export default () => {
   const connect = () => {
+    //connect MongDBdatabase
     mongoose
       .connect(`${config.DATABASE_URL}`)
       .then(() => {

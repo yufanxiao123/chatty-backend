@@ -27,6 +27,10 @@ const authSchema: Schema = new Schema(
 );
 
 //before password saved in database, hash the password (password saved in database for the first time)
+/**
+ * @param event name: 'save'
+ * @param a function that will be executed before the event
+ */
 authSchema.pre('save', async function (this: IAuthDocument, next: () => void) {
   const hashedPassword: string = await hash(this.password as string, SALT_ROUND);
   this.password = hashedPassword;

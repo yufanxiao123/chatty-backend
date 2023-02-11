@@ -9,8 +9,9 @@ class UserWorker {
   async addUserToDB(job: Job, done: DoneCallback): Promise<void> {
     try {
       //in controller signup.ts, we have authQueue.addAuthUserJob('addAuthUserToDB',{value: userDataForCache});
-      const { value } = job.data;
+      const { value } = job.data; // job.data = {value: userDataForCache}
       //add method to send data to database
+      //value = userDataForCache
       await userService.addUserData(value);
       //report job progress
       job.progress(100);

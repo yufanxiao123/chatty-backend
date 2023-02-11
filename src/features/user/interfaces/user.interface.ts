@@ -3,10 +3,13 @@ import { ObjectId } from 'mongodb';
 
 //user information stored in mongodb
 /***
+ * Document in mongoose:  Each Document has a unique _id and can have any number of properties
  * username, email, password, avatarColor and uId is ? because we want to save them in Redis instead of MongoDB
  * use authId to connect user in Redis and MongoDB
  */
 export interface IUserDocument extends Document {
+  //ObjectId is a 12-byte BSON type used to uniquely identify documents
+  //The ObjectId is automatically generated for every document when it is inserted into the collection and is used as the default value for the _id field in the document. You can also manually specify a custom value for the _id field but it is generally recommended to use the default ObjectId value.
   _id: string | ObjectId;
   authId: string | ObjectId;
   username?: string;

@@ -24,6 +24,7 @@ class UserService {
     return users[0];
   }
 
+  //此处输入的是IAuthDocument里的_id
   public async getUserByAuthId(authId: string): Promise<IUserDocument> {
     //aggregate聚合管道
     const users: IUserDocument[] = await UserModel.aggregate([
