@@ -46,7 +46,7 @@ export class SignUp {
     });
 
     const result: UploadApiResponse = (await uploads(avatarImage, `${userObjectId}`, true, true)) as UploadApiResponse;
-    //会生成图片地址https://res.cloudinary.com/randomnumber/userObjectId,如果不给定userObjectId，cloudinary会每次更新图片就生成一个，如果给定，那更新的图片会覆盖之前userObjectId的图片
+    //会生成图片地址https://res.cloudinary.com/${process.env.CLOUD_NAME}/image/upload/v${result.version}/${userObjectId},如果不给定userObjectId，cloudinary会每次更新图片就生成一个，如果给定，那更新的图片会覆盖之前userObjectId的图片
 
     //if error
     if (!result?.public_id) {
@@ -63,7 +63,7 @@ export class SignUp {
     //Add to database
     //use omit() to delete properties in object
     omit(userDataForCache, ['uId', 'username', 'email', 'avatarColor', 'password']);
-    authQueue.addAuthUserJob(authQueue.queueName, { value: userDataForCache });
+    authQueue.addAuthUserJob(authQueue.queueName, { value: authData });
 
     userQueue.addUserJob(userQueue.queueName, { value: userDataForCache });
     const userJwt: string = SignUp.prototype.signToken(authData, userObjectId);

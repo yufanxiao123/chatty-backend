@@ -4,8 +4,9 @@ import { BullAdapter, createBullBoard, ExpressAdapter } from '@bull-board/expres
 import { config } from '@root/config';
 import Queue, { Job } from 'bull';
 import Logger from 'bunyan';
+import { IPostJobData } from '@post/interfaces/post.interface';
 
-type IBaseJobData = IAuthJob | IEmailJob;
+type IBaseJobData = IAuthJob | IEmailJob | IPostJobData;
 
 let bullAdapter: BullAdapter[] = [];
 

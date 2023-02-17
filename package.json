@@ -11,7 +11,7 @@
     "prettier:fix": "prettier --write 'src/**/*.{ts,json}'",
     "build": "ttsc -p .",
     "start": "nodemon ./build/app.js",
-    "test": "jest --coverage=true -w=1 --forceExit --detectOpenHandles --watchAll=false"
+    "test": "jest --coverage=true -w=1 --forceExit --detectOpenHandles --watchAll=true"
   },
   "keywords": [],
   "author": "",

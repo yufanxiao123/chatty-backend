@@ -106,6 +106,14 @@ export class UserCache extends BaseCache {
       await this.client.ZADD('user', { score: parseInt(userUId, 10), value: `${key}` });
       /***
        * redis Hset 命令基本语法如下：HSET KEY_NAME FIELD VALUE, KEY_NAME是该Hashes表的名字，`users:${key}`是字段，相当于java里map的key
+       * @param the name of the hash, `users:${key}`
+       * @param the name of the field within the hash,
+       * @param and the value that you want to set for the field.
+       * 这里的写法相当于await client.HSET(`users:${key}`, "name", "Joy", "id", "cmk", "deposit", 200);
+       * In this example, the HSET command sets three fields in the hash users:${key}:
+       * The field "name" is set to the value "Joy".
+       * The field "id" is set to the value "cmk".
+       * The field "deposit" is set to the value 200.
        */
       await this.client.HSET(`users:${key}`, dataToSave);
       //至此，就完成了把user的信息存到Redis里

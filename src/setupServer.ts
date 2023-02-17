@@ -1,3 +1,4 @@
+import { SocketIOPostHandler } from './shared/sockets/post';
 //install express in terminal at first
 import { Application, json, urlencoded, Response, Request, NextFunction } from 'express';
 import http from 'http';
@@ -197,6 +198,7 @@ export class ChattyServer {
   }
 
   private socketIOConnections(io: Server): void {
-    log.info('calling socketIOConnections');
+    const postSocketHandler: SocketIOPostHandler = new SocketIOPostHandler(io);
+    postSocketHandler.listen();
   }
 }
