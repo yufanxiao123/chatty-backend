@@ -10,7 +10,7 @@
     "prettier:check": "prettier --check 'src/**/*.{ts,json}'",
     "prettier:fix": "prettier --write 'src/**/*.{ts,json}'",
     "build": "ttsc -p .",
-    "start": "nodemon ./build/app.js",
+    "start": "nodemon ./build/src/app.js",
     "test": "jest --coverage=true -w=1 --forceExit --detectOpenHandles --watchAll=true"
   },
   "keywords": [],

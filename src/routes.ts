@@ -4,6 +4,7 @@ import { authRoutes } from '@auth/routes/authRoutes';
 import { Application } from 'express';
 import { currentUserRoutes } from '@auth/routes/currentRoutes';
 import { postRoutes } from '@post/routes/postRoutes';
+import { healthRoutes } from '@user/routes/healthRoutes';
 
 const BASE_PATH = '/api/v1';
 
@@ -23,7 +24,7 @@ export default (app: Application) => {
     app.use('/queues', serverAdapter.getRouter());
     app.use(BASE_PATH, authRoutes.routes());
     app.use(BASE_PATH, authRoutes.signoutRoute());
-
+    app.use(healthRoutes.health());
     app.use(BASE_PATH, authMiddleware.verifyUser, currentUserRoutes.routes());
     app.use(BASE_PATH, authMiddleware.verifyUser, postRoutes.routes());
   };
