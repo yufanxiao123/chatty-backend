@@ -29,6 +29,6 @@ resource "aws_elasticache_replication_group" "chatapp_redis_cluster" {
 
   tags = merge(
     local.common_tags,
-    tomap({ "Name" = "${local.prefix}-elasticache" })
+    tomap({ "Name" = "${local.prefix}-elasticach" })
   )
 }

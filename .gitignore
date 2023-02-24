@@ -141,5 +141,5 @@ build
 
 # SvelteKit build / generate output
 .svelte-kit
-
+.terraform/*
 # End of https://www.toptal.com/developers/gitignore/api/node

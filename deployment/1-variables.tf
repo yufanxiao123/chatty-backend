@@ -49,7 +49,7 @@ variable "https_ssl_policy" {
 variable "main_api_server_domain" {
   description = "Main API Server Domain"
   type        = string
-  default     = "api.dev.joybackend.online" # Your backend domain you created a route53 zone for
+  default     = "joybackend.online" # Your backend domain you created a route53 zone for
 }
 
 variable "dev_api_server_domain" {

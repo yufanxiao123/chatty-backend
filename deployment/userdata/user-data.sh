@@ -6,14 +6,15 @@ function program_is_installed {
   type $1 >/dev/null 2>&1 || { local return_=0; }
   echo "$return_"
 }
-
+##install code deploy agent
 sudo yum update -y
 sudo yum install ruby -y
 sudo yum install wget -y
 cd /home/ec2-user
-wget https://aws-codedeploy-eu-central-1.s3.eu-central-1.amazonaws.com/latest/install
+wget https://aws-codedeploy-us-west-2.s3.us-west-2.amazonaws.com/latest/install
 sudo chmod +x ./install
 sudo ./install auto
+###
 
 # Check if NodeJs is installed. If not, install it
 if [ $(program_is_installed node) == 0 ]; then
@@ -38,9 +39,9 @@ fi
 cd /home/ec2-user
 
 git clone -b develop https://github.com/yufanxiao123/udemy-chatty-backend.git # replace this github url with your url of your own project
-cd chatty-backend # set your project name
+cd udemy-chatty-backend # set your project name
 npm install
-aws s3 sync s3://chatapp-env-files-joy/backend/develop . # update with your s3 bucket
+aws s3 sync s3://chatapp-env-files-joy/develop . # update with your s3 bucket
 unzip env-file.zip
 cp .env.develop .env
 npm run build
