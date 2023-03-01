@@ -163,19 +163,7 @@ jobs:
             npm run test
       - codecov/upload #generate a coverage folder and upload it to codecov
       - *notify-on-fail
-  upload-project-to-s3:
-    executor: aws-cli/default
-    steps:
-      - checkout
-      - aws-cli/setup:
-          profile-name: default
-      - *zip-project
-      #chatapp-server-${CIRCLE_BRANCH}-app #bucketname
-      - run:
-          name: Upload project to S3
-          command: |
-            aws --region us-west-2 s3 cp chatapp.zip s3://chatapp-server-${CIRCLE_BRANCH}-app
-      - *notify-on-fail
+
   terraform-validate:
     executor: terraform-executor
     steps:
@@ -207,6 +195,19 @@ jobs:
             cd deployment/
             terraform workspace select ${CIRCLE_BRANCH}
             terraform apply -auto-approve
+      - *notify-on-fail
+  upload-project-to-s3:
+    executor: aws-cli/default
+    steps:
+      - checkout
+      - aws-cli/setup:
+          profile-name: default
+      - *zip-project
+      #chatapp-server-${CIRCLE_BRANCH}-app #bucketname
+      - run:
+          name: Upload project to S3
+          command: |
+            aws --region us-west-2 s3 cp chatapp.zip s3://chatapp-server-${CIRCLE_BRANCH}-app
       - *notify-on-fail
   # first time when job created, in environment variable, CODE_DEPLOY_UPDATE=false, then if we have code change, set CODE_DEPLOY_UPDATE=true in CIRCLECI website
   push-to-aws-code-deploy:
