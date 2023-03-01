@@ -182,6 +182,8 @@ jobs:
     steps:
       - checkout
       - *show-current-branch-name
+      - aws-cli/setup:
+          profile-name: default
       - run:
           name: Teffaform plan
           command: |
@@ -200,8 +202,6 @@ jobs:
     executor: aws-cli/default
     steps:
       - checkout
-      - aws-cli/setup:
-          profile-name: default
       - *zip-project
       #chatapp-server-${CIRCLE_BRANCH}-app #bucketname
       - run:
