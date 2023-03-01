@@ -11,7 +11,7 @@ executors:
     docker:
       - image: cimg/node:18.14.2
       - image: cimg/redis:7.0.2
-      - image: 'cibuilds/base:lastest'
+      - image: 'cibuilds/base:latest'
     working_directory: ~/repo
   #executor name
   terraform-executor:
@@ -19,7 +19,7 @@ executors:
       - image: hashicorp/terraform:latest
   slack-executor:
     docker:
-      - image: 'cibuilds/base:lastest'
+      - image: 'cibuilds/base:latest'
     resource_class: small
 
 #aliases 是yml文件的用法
