@@ -246,7 +246,7 @@ export class PostCache extends BaseCache {
        * @param max
        * @returns the number of elements in the sorted set with a score between min and max
        */
-      const count: number = await this.client.ZCOUNT('post',uId,uId);
+      const count: number = await this.client.ZCOUNT('post', uId, uId);
       return count;
     } catch (error) {
       log.error(error);
@@ -269,7 +269,7 @@ export class PostCache extends BaseCache {
       /**
        * remove one or more members from a sorted set
        */
-      multi.ZREM('post',`${key}`);
+      multi.ZREM('post', `${key}`);
       //delete a hash
       multi.DEL(`posts:${key}`);
       multi.DEL(`comments:${key}`);
@@ -285,4 +285,3 @@ export class PostCache extends BaseCache {
     }
   }
 }
-

@@ -16,12 +16,11 @@ interface IMailOptions {
 }
 
 class MailTransport {
-
   public async sendEmail(receiverEmail: string, subject: string, body: string): Promise<void> {
     if (config.NODE_ENV === 'test' || config.NODE_ENV === 'development') {
-      this.developmentEmailSender(receiverEmail,subject,body);
+      this.developmentEmailSender(receiverEmail, subject, body);
     } else {
-      this.productionEmailSender(receiverEmail,subject,body);
+      this.productionEmailSender(receiverEmail, subject, body);
     }
   }
   // when development use this send email function
@@ -47,16 +46,13 @@ class MailTransport {
       await transporter.sendMail(mailOptions);
       log.info('Development email sent successfully');
     } catch (error) {
-      log.error('Error sending email',error);
+      log.error('Error sending email', error);
       throw new BadRequestError('Error sending email');
-
     }
-
   }
 
   // other time, use this send email function
   private async productionEmailSender(receiverEmail: string, subject: string, body: string): Promise<void> {
-
     const mailOptions: IMailOptions = {
       from: `Chatty App <${config.SENDER_EMAIL!}>`,
       to: receiverEmail,
@@ -68,11 +64,9 @@ class MailTransport {
       await sendGridMail.send(mailOptions);
       log.info('Production email sent successfully');
     } catch (error) {
-      log.error('Error sending email',error);
+      log.error('Error sending email', error);
       throw new BadRequestError('Error sending email');
-
     }
-
   }
 }
 

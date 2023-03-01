@@ -10,16 +10,15 @@ import { joiValidation } from '@global/decorators/joi-validation.decorators';
 import { Request, Response } from 'express';
 import { config } from '@root/config';
 import moment from 'moment';
-import  PublicIP  from 'ip';
+import PublicIP from 'ip';
 import { emailSchema, passwordSchema } from '@auth/schemes/password';
 import crypto from 'crypto';
 
 export class Password {
-
   //send reset password email to user
   @joiValidation(emailSchema)
   public async create(req: Request, res: Response): Promise<void> {
-    const {email} = req.body;
+    const { email } = req.body;
     const existingUser: IAuthDocument = await authService.getAuthUserByEmail(email);
     if (!existingUser) {
       throw new BadRequestError('Invalid credentials: cannot find User with this email.');
@@ -30,20 +29,20 @@ export class Password {
     //convert buffer to string, for reset password token
     const randomCharacters = randomBytes.toString('hex');
 
-    await authService.updatePasswordToken(`${existingUser._id}`, randomCharacters, Date.now() *60*60*1000);
+    await authService.updatePasswordToken(`${existingUser._id}`, randomCharacters, Date.now() * 60 * 60 * 1000);
     //create a reset link
     const resetLink = `${config.CLIENT_URL}/reset-password?token=${randomCharacters}`;
-    const template: string = forgotPasswordTemplate.passwordResetTemplate(existingUser.username,resetLink);
-    emailQueue.addEmailJob(emailQueue.queueName,{template, receiverEmail: email,subject:'Reset your password'});
+    const template: string = forgotPasswordTemplate.passwordResetTemplate(existingUser.username, resetLink);
+    emailQueue.addEmailJob(emailQueue.queueName, { template, receiverEmail: email, subject: 'Reset your password' });
 
-    res.status(HTTP_STATUS.OK).json({message: 'Password reset email sent.'});
+    res.status(HTTP_STATUS.OK).json({ message: 'Password reset email sent.' });
   }
 
   //send reset password comfirmation email to user
   @joiValidation(passwordSchema)
   public async update(req: Request, res: Response): Promise<void> {
-    const {password, confirmPassword} = req.body;
-    const {token} = req.params;
+    const { password, confirmPassword } = req.body;
+    const { token } = req.params;
     // check if token exist or toekn expired
     const existingUser: IAuthDocument = await authService.getAuthUserByPasswordToken(token);
     if (!existingUser) {
@@ -64,7 +63,7 @@ export class Password {
       date: moment().format('DD/MM/YYYY HH:mm')
     };
     const template: string = resetPasswordTemplate.passwordResetComfirmationTemplate(templateParams);
-    emailQueue.addEmailJob(emailQueue.queueName,{template, receiverEmail: existingUser.email,subject:'Password reset comfirmation'});
-    res.status(HTTP_STATUS.OK).json({message: 'Password reset confirmation email sent.'});
+    emailQueue.addEmailJob(emailQueue.queueName, { template, receiverEmail: existingUser.email, subject: 'Password reset comfirmation' });
+    res.status(HTTP_STATUS.OK).json({ message: 'Password reset confirmation email sent.' });
   }
 }

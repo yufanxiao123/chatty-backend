@@ -9,13 +9,12 @@ class PostQueue extends BaseQueue {
     this.queueName = 'addPostToDB';
 
     this.processJob(this.queueName, 5, postWorker.savePostToDB);
-    this.processJob('deletePostFromDB',5,postWorker.deletePostFromDB);
+    this.processJob('deletePostFromDB', 5, postWorker.deletePostFromDB);
   }
 
   public addPostJob(name: string, data: IPostJobData): void {
     this.addJob(name, data);
   }
-
 }
 
 export const postQueue: PostQueue = new PostQueue();
