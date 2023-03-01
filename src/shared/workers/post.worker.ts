@@ -10,7 +10,7 @@ class PostWorker {
     try {
       const { key, value } = job.data;
 
-      await postService.addPostToDB(key,value);
+      await postService.addPostToDB(key, value);
       job.progress(100);
       done(null, job.data);
     } catch (error) {
@@ -23,7 +23,7 @@ class PostWorker {
     try {
       const { keyOne, keyTwo } = job.data;
 
-      await postService.deletePost(keyOne,keyTwo);
+      await postService.deletePost(keyOne, keyTwo);
       job.progress(100);
       done(null, job.data);
     } catch (error) {

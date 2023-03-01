@@ -15,7 +15,7 @@ import { config } from '@root/config';
 import { loginSchema } from '@auth/schemes/signin';
 import { mailTransport } from '@service/emails/mail.transport';
 import moment from 'moment';
-import  PublicIP  from 'ip';
+import PublicIP from 'ip';
 export class SignIn {
   @joiValidation(loginSchema)
   public async read(req: Request, res: Response): Promise<void> {

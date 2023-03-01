@@ -10,7 +10,7 @@ class EmailWorker {
     try {
       const { template, receiverEmail, subject } = job.data;
 
-      await mailTransport.sendEmail(receiverEmail,subject,template);
+      await mailTransport.sendEmail(receiverEmail, subject, template);
       job.progress(100);
       done(null, job.data);
     } catch (error) {

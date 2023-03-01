@@ -1,5 +1,5 @@
 import { postQueue } from './../../../shared/services/queues/post.queue';
-import  HTTP_STATUS  from 'http-status-codes';
+import HTTP_STATUS from 'http-status-codes';
 import { ObjectId } from 'mongodb';
 import { joiValidation } from '@global/decorators/joi-validation.decorators';
 import { IPostDocument } from '@post/interfaces/post.interface';
@@ -14,11 +14,9 @@ import { BadRequestError } from '@global/helpers/error-handler';
 const postCache: PostCache = new PostCache();
 
 export class Create {
-
-
   @joiValidation(postSchema)
   public async post(req: Request, res: Response): Promise<void> {
-    const {post, bgColor, privacy, gifUrl, profilePicture, feelings} = req.body;
+    const { post, bgColor, privacy, gifUrl, profilePicture, feelings } = req.body;
     const postObjectId: ObjectId = new ObjectId();
     const createdPost: IPostDocument = {
       _id: postObjectId,
@@ -43,7 +41,7 @@ export class Create {
 
     //socketIO object emit event to client
     //写在前面是为了让客户端不必等数据真的存到DB和redis
-    socketIOPostObject.emit('add post',createdPost);
+    socketIOPostObject.emit('add post', createdPost);
     //save to cache
     await postCache.savePostToCache({
       key: postObjectId,
@@ -52,16 +50,16 @@ export class Create {
       createdPost
     });
     //save to DB
-    postQueue.addPostJob(postQueue.queueName,{
-      key:req.currentUser!.userId,
-      value:createdPost
+    postQueue.addPostJob(postQueue.queueName, {
+      key: req.currentUser!.userId,
+      value: createdPost
     });
-    res.status(HTTP_STATUS.CREATED).json({message: 'Post created successfully'});
+    res.status(HTTP_STATUS.CREATED).json({ message: 'Post created successfully' });
   }
 
   @joiValidation(postWithImageSchema)
   public async postWithImage(req: Request, res: Response): Promise<void> {
-    const {post, bgColor, privacy, gifUrl, profilePicture, feelings, image} = req.body;
+    const { post, bgColor, privacy, gifUrl, profilePicture, feelings, image } = req.body;
 
     //allow cloudinary to generate image id
     const result: UploadApiResponse = (await uploads(image)) as UploadApiResponse;
@@ -93,7 +91,7 @@ export class Create {
 
     //socketIO object emit event to client
     //写在前面是为了让客户端不必等数据真的存到DB和redis
-    socketIOPostObject.emit('add post',createdPost);
+    socketIOPostObject.emit('add post', createdPost);
     //save to cache
     await postCache.savePostToCache({
       key: postObjectId,
@@ -102,11 +100,11 @@ export class Create {
       createdPost
     });
     //save to DB
-    postQueue.addPostJob(postQueue.queueName,{
-      key:req.currentUser!.userId,
-      value:createdPost
+    postQueue.addPostJob(postQueue.queueName, {
+      key: req.currentUser!.userId,
+      value: createdPost
     });
     //call image queue to add image to MongoDB
-    res.status(HTTP_STATUS.CREATED).json({message: 'Post created with image successfully'});
+    res.status(HTTP_STATUS.CREATED).json({ message: 'Post created with image successfully' });
   }
 }
