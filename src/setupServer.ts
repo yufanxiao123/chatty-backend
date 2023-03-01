@@ -118,19 +118,19 @@ export class ChattyServer {
      * endpoint-specific middleware functions (e.g., app.get(...), app.post(...)) will be executed before catch-all middleware functions (e.g., app.all(...)) if a match is found.
      * If no match is found, the catch-all middleware functions will be executed.
      * For example:
-        * app.use(middleware1);
-        * app.use(middleware2);
-        * app.get('/users', middleware3);
-        * app.all('*', catchAllMiddleware);
+     * app.use(middleware1);
+     * app.use(middleware2);
+     * app.get('/users', middleware3);
+     * app.all('*', catchAllMiddleware);
      * When a client makes a GET request to the /users endpoint, the execution order of the middleware functions will be:
-        * middleware1
-        * middleware2
-        * middleware3
+     * middleware1
+     * middleware2
+     * middleware3
      * catchAllMiddleware will not be executed, as the request was handled by middleware3.
      * If the client makes a request to an endpoint that is not handled by any other middleware functions, the execution order will be:
-        * middleware1
-        * middleware2
-        * catchAllMiddleware
+     * middleware1
+     * middleware2
+     * catchAllMiddleware
      */
     app.all('*', (req: Request, res: Response) => {
       res.status(HTTP_STATUS.NOT_FOUND).json({ message: `${req.originalUrl} not found` });
@@ -163,7 +163,6 @@ export class ChattyServer {
       log.error(error);
     }
   }
-
 
   private async createSocketIO(httpServer: http.Server): Promise<Server> {
     //An instance of the Server class represents a socket.io server and can listen for incoming connections from clients

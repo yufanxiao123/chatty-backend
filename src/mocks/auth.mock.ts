@@ -3,7 +3,7 @@ import { AuthPayload, IAuthDocument } from '@auth/interfaces/auth.interface';
 import { Response } from 'express';
 
 //a function that returns a object, mock Request object
-export const authMockRequest = (sessionData: IJWT, body: IAuthMock, currentUser?: AuthPayload| null, params?: any) => ({
+export const authMockRequest = (sessionData: IJWT, body: IAuthMock, currentUser?: AuthPayload | null, params?: any) => ({
   session: sessionData,
   body,
   currentUser,
@@ -26,7 +26,6 @@ export const authMockResponse = (): Response => {
 export interface IJWT {
   jwt?: string;
 }
-
 
 export interface IAuthMock {
   _id?: string;
@@ -74,4 +73,3 @@ export const authMock = {
   save: () => {},
   comparePassword: () => false
 } as unknown as IAuthDocument;
-

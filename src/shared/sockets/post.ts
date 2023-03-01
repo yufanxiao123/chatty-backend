@@ -18,7 +18,7 @@ export class SocketIOPostHandler {
      * connection is a built-in event provided by Socket.IO that is emitted by the server whenever a client connects to it.
      * @param callback: (...args: any[]) => void: The function that will be executed when the event is triggered. The callback function can take any number of arguments, and it does not return a value.
      */
-    this.io.on('connection',(socket: Socket) => {
+    this.io.on('connection', (socket: Socket) => {
       console.log('Post socketio handler');
     });
   }

@@ -4,8 +4,8 @@ import { IResetPasswordParams } from '@user/interfaces/user.interface';
 
 class ResetPasswordTemplate {
   public passwordResetComfirmationTemplate(templateParams: IResetPasswordParams): string {
-    const { username, email, ipaddress, date} = templateParams;
-    return ejs.render(fs.readFileSync(__dirname + '/reset-password-template.ejs','utf8'), {
+    const { username, email, ipaddress, date } = templateParams;
+    return ejs.render(fs.readFileSync(__dirname + '/reset-password-template.ejs', 'utf8'), {
       username,
       email,
       ipaddress,
