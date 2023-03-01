@@ -28,7 +28,7 @@ aliases:
   - &show-current-branch-name #show branch the circleci working on
       run:
         name: Show current branch
-        command: echo ${CIRCLE_BRANCH} #CIRCLE_BRANCH is a circleci environment variable
+        command: echo ${CIRCLE_BRANCH} #BRANCH is a circleci environment variable
   # save something that can reuse between jobs
   - &restore-cache
     restore_cache:
