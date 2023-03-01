@@ -370,7 +370,7 @@ workflows:
                - main
       - push-to-aws-code-deploy:
           requires:
-            - terraform-plan-and-apply
+            - upload-project-to-s3
           filters:
             branches:
               only:
